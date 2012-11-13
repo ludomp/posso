@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<dict>
+		<key>height</key>
+		<string>77</string>
+		<key>image</key>
+		<string>posso-text.png</string>
+		<key>url</key>
+		<string>http://posso.mobi</string>
+	</dict>
+	<dict>
+		<key>text</key>
+		<string>© 2009, All Rights Reserved</string>
+	</dict>
+	<dict>
+		<key>text</key>
+		<string>Created By: Rohan Pinto</string>
+		<key>url</key>
+		<string>http://www.rohanpinto.com/</string>
+	</dict>
+	<dict>
+		<key>text</key>
+		<string>Online Support Forum</string>
+		<key>url</key>
+		<string>http://getsatisfaction.com/brightmind/products/brightmind_possomobi?style=problem</string>
+	</dict>
+</array>
+</plist>

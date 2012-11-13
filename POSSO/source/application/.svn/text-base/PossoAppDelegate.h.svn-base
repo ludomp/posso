@@ -1,0 +1,41 @@
+//
+//  PossoAppDelegate.h
+//  Posso
+//
+//  Created by alex on 15/04/09.
+//  Copyright Trollwerks Inc 2009. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+
+@interface PossoAppDelegate : NSObject <UIApplicationDelegate, UITabBarControllerDelegate>
+{
+   IBOutlet UIWindow *window;
+   IBOutlet UITabBarController *tabBarController;
+   IBOutlet UITabBar *tabBar;
+
+   NSString *token;
+}
+
+@property (nonatomic, retain) IBOutlet UIWindow *window;
+@property (nonatomic, retain) IBOutlet UITabBarController *tabBarController;
+@property (nonatomic, retain) IBOutlet UITabBar *tabBar;
+@property (nonatomic, copy) NSString *token;
+
+// Life cycle
+
+- (void)applicationDidFinishLaunching:(UIApplication *)application;
+- (void)applicationDidReceiveMemoryWarning:(UIApplication *)application;
+- (void)applicationWillTerminate:(UIApplication *)application;
+- (void)dealloc;
+
+// Application support
+
++ (PossoAppDelegate *)appDelegate;
+
+- (NSString *)baseURL;
+
+- (void)retrieveTokenID;
+- (void)logout;
+
+@end

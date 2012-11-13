@@ -1,0 +1,58 @@
+//
+//  RolesViewController.h
+//  Posso
+//
+//  Created by alex on 19/04/09.
+//  Copyright 2009 Trollwerks Inc. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+
+@interface RolesViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
+{
+   IBOutlet UILabel *enterLoginLabel;
+   IBOutlet UIActivityIndicatorView *loadingIndicator;
+   IBOutlet UILabel *errorLabel;
+   IBOutlet UITableView *rolesTable;
+   
+   NSString *lastRetrievedToken;
+   NSMutableArray *lastRetrievedRoles;
+ 
+}
+
+@property (nonatomic, retain) IBOutlet UILabel *enterLoginLabel;
+@property (nonatomic, retain) IBOutlet UIActivityIndicatorView *loadingIndicator;
+@property (nonatomic, retain) IBOutlet UILabel *errorLabel;
+@property (nonatomic, retain) IBOutlet UITableView *rolesTable;
+@property (nonatomic, copy) NSString *lastRetrievedToken;
+@property (nonatomic, retain) NSMutableArray *lastRetrievedRoles;
+
+// Life cycle
+
+- (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)animated;
+- (void)didReceiveMemoryWarning;
+#if __IPHONE_OS_VERSION_MIN_REQUIRED >= 30000
+- (void)viewDidUnload;
+- (void)setView:(UIView*)toView;
+#endif __IPHONE_OS_VERSION_MIN_REQUIRED >= 30000
+- (void)clearOutlets;
+- (void)dealloc;
+
+// Roles management
+
+- (void)fixDisplay;
+- (void)loadRolesFromServer;
+- (BOOL)parseRoles:(NSString *)roles;
+
+// Table support
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView;
+- (NSInteger)tableView:(UITableView *)table numberOfRowsInSection:(NSInteger)section;
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath;
+/*
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath;
+- (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath;
+*/
+
+@end

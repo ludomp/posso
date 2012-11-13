@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<dict>
+		<key>text</key>
+		<string>Rohan Pinto</string>
+		<key>url</key>
+		<string>http://www.rohanpinto.com</string>
+	</dict>
+	<dict>
+		<key>text</key>
+		<string>Ramses Moya</string>
+		<key>url</key>
+		<string>http://www.ramsesmoya.com</string>
+	</dict>
+	<dict>
+		<key>text</key>
+		<string>Pat Patterson</string>
+		<key>url</key>
+		<string>http://blogs.sun.com/superpat</string>
+	</dict>
+	<dict>
+		<key>text</key>
+		<string>Alex Curylo</string>
+		<key>url</key>
+		<string>http://www.alexcurylo.com</string>
+	</dict>
+	<dict>
+		<key>text</key>
+		<string>Eve Maler</string>
+		<key>url</key>
+		<string>http://www.xmlgrrl.com</string>
+	</dict>
+	<dict>
+		<key>text</key>
+		<string>Dj Padzensky</string>
+		<key>url</key>
+		<string>http://www.padz.net/~djpadz</string>
+	</dict>
+	<dict>
+		<key>text</key>
+		<string>Terry Gardner</string>
+		<key>url</key>
+		<string>http://blogs.sun.com/terrygardner</string>
+	</dict>
+	<dict>
+		<key>text</key>
+		<string>Ashish Jain</string>
+		<key>url</key>
+		<string>http://www.itickr.com</string>
+	</dict>
+	<dict>
+		<key>text</key>
+		<string>Mark Dixon</string>
+		<key>url</key>
+		<string>http://blogs.sun.com/identity</string>
+	</dict>
+	<dict>
+		<key>text</key>
+		<string>Conor Cahill</string>
+		<key>url</key>
+		<string>http://conorcahill.blogspot.com/</string>
+	</dict>
+</array>
+</plist>

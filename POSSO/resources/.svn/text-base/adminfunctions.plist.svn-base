@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<dict>
+		<key>text</key>
+		<string>List Identities</string>
+		<key>view</key>
+		<string>UsersView</string>
+	</dict>
+	<dict>
+		<key>text</key>
+		<string>Create Identities</string>
+		<key>view</key>
+		<string>CreateUsersView</string>
+	</dict>
+	<dict>
+		<key>text</key>
+		<string>Search Identities</string>
+		<key>view</key>
+		<string>SearchUsersView</string>
+	</dict>
+	<dict>
+		<key>text</key>
+		<string>Change Password</string>
+		<key>view</key>
+		<string>ChangePasswordView</string>
+	</dict>
+	<dict>
+		<key>text</key>
+		<string>Reset Password</string>
+		<key>view</key>
+		<string>ResetPasswordView</string>
+	</dict>
+	<dict>
+		<key>text</key>
+		<string>Role Management</string>
+		<key>view</key>
+		<string>RolesView</string>
+	</dict>
+</array>
+</plist>

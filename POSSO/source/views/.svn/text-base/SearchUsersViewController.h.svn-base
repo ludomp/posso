@@ -1,0 +1,77 @@
+//
+//  SearchUsersViewController.h
+//  Posso
+//
+//  Created by alex on 20/04/09.
+//  Copyright 2009 Trollwerks Inc. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+
+@interface SearchUsersViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate>
+{
+   IBOutlet UISearchBar *keywordBar;
+   IBOutlet UILabel *enterLoginLabel;
+   IBOutlet UIActivityIndicatorView *loadingIndicator;
+   IBOutlet UILabel *errorLabel;
+   IBOutlet UITableView *usersTable;
+   
+   NSString *lastRetrievedToken;
+   NSMutableArray *lastRetrievedUsers;
+   
+   NSString *lastSearchTerms;
+   
+   BOOL isSearching;
+}
+
+@property (nonatomic, retain) IBOutlet UISearchBar *keywordBar;
+@property (nonatomic, retain) IBOutlet UILabel *enterLoginLabel;
+@property (nonatomic, retain) IBOutlet UIActivityIndicatorView *loadingIndicator;
+@property (nonatomic, retain) IBOutlet UILabel *errorLabel;
+@property (nonatomic, retain) IBOutlet UITableView *usersTable;
+@property (nonatomic, copy) NSString *lastRetrievedToken;
+@property (nonatomic, retain) NSMutableArray *lastRetrievedUsers;
+@property (nonatomic, copy) NSString *lastSearchTerms;
+
+// Life cycle
+
+- (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)animated;
+- (void)viewDidAppear:(BOOL)animated;
+- (void)didReceiveMemoryWarning;
+#if __IPHONE_OS_VERSION_MIN_REQUIRED >= 30000
+- (void)viewDidUnload;
+- (void)setView:(UIView*)toView;
+#endif __IPHONE_OS_VERSION_MIN_REQUIRED >= 30000
+- (void)clearOutlets;
+- (void)dealloc;
+
+// Users management
+
+- (void)fixDisplay;
+- (void)loadUsersFromServer;
+- (BOOL)parseUsers:(NSString *)users;
+
+// Table support
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView;
+- (NSInteger)tableView:(UITableView *)table numberOfRowsInSection:(NSInteger)section;
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath;
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath;
+- (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath;
+
+// UISearchBar support
+
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar;
+- (void)searchBarTextDidEndEditing:(UISearchBar *)searchBar;
+/*
+ - (BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar;                      // return NO to not become first responder
+ - (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar;                     // called when text starts editing
+ - (BOOL)searchBarShouldEndEditing:(UISearchBar *)searchBar;                        // return NO to not resign first responder
+ - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText;   // called when text changes (including clear)
+ 
+ - (void)searchBarBookmarkButtonClicked:(UISearchBar *)searchBar;                   // called when bookmark button pressed
+ - (void)searchBarCancelButtonClicked:(UISearchBar *) searchBar;                    // called when cancel button pressed
+ */
+
+@end

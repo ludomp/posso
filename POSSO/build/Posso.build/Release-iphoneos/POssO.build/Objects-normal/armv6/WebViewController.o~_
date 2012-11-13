@@ -1,0 +1,48 @@
+/Users/rp121066/Documents/myiPhoneProjects/POSSO/source/views/browserview/WebViewController.m:45:23: error: StringUtil.h: No such file or directory
+/Users/rp121066/Documents/myiPhoneProjects/POSSO/source/views/browserview/WebViewController.m: In function '-[WebViewController initWithNibName:bundle:]':
+/Users/rp121066/Documents/myiPhoneProjects/POSSO/source/views/browserview/WebViewController.m:64: warning: suggest parentheses around assignment used as truth value
+/Users/rp121066/Documents/myiPhoneProjects/POSSO/source/views/browserview/WebViewController.m: In function '-[WebViewController viewWillAppear:]':
+/Users/rp121066/Documents/myiPhoneProjects/POSSO/source/views/browserview/WebViewController.m:79: warning: unused parameter 'animated'
+/Users/rp121066/Documents/myiPhoneProjects/POSSO/source/views/browserview/WebViewController.m: In function '-[WebViewController viewWillDisappear:]':
+/Users/rp121066/Documents/myiPhoneProjects/POSSO/source/views/browserview/WebViewController.m:100: warning: unused parameter 'animated'
+/Users/rp121066/Documents/myiPhoneProjects/POSSO/source/views/browserview/WebViewController.m: In function '-[WebViewController viewDidDisappear:]':
+/Users/rp121066/Documents/myiPhoneProjects/POSSO/source/views/browserview/WebViewController.m:106: warning: unused parameter 'animated'
+/Users/rp121066/Documents/myiPhoneProjects/POSSO/source/views/browserview/WebViewController.m: In function '-[WebViewController didRotateFromInterfaceOrientation:]':
+/Users/rp121066/Documents/myiPhoneProjects/POSSO/source/views/browserview/WebViewController.m:111: warning: unused parameter 'fromInterfaceOrient'
+/Users/rp121066/Documents/myiPhoneProjects/POSSO/source/views/browserview/WebViewController.m: In function '-[WebViewController reload:]':
+/Users/rp121066/Documents/myiPhoneProjects/POSSO/source/views/browserview/WebViewController.m:145: warning: unused parameter 'sender'
+/Users/rp121066/Documents/myiPhoneProjects/POSSO/source/views/browserview/WebViewController.m: In function '-[WebViewController stop:]':
+/Users/rp121066/Documents/myiPhoneProjects/POSSO/source/views/browserview/WebViewController.m:151: warning: unused parameter 'sender'
+/Users/rp121066/Documents/myiPhoneProjects/POSSO/source/views/browserview/WebViewController.m: In function '-[WebViewController goBack:]':
+/Users/rp121066/Documents/myiPhoneProjects/POSSO/source/views/browserview/WebViewController.m:157: warning: unused parameter 'sender'
+/Users/rp121066/Documents/myiPhoneProjects/POSSO/source/views/browserview/WebViewController.m: In function '-[WebViewController goForward:]':
+/Users/rp121066/Documents/myiPhoneProjects/POSSO/source/views/browserview/WebViewController.m:162: warning: unused parameter 'sender'
+/Users/rp121066/Documents/myiPhoneProjects/POSSO/source/views/browserview/WebViewController.m: In function '-[WebViewController onAction:]':
+/Users/rp121066/Documents/myiPhoneProjects/POSSO/source/views/browserview/WebViewController.m:167: warning: unused parameter 'sender'
+/Users/rp121066/Documents/myiPhoneProjects/POSSO/source/views/browserview/WebViewController.m: In function '-[WebViewController actionSheet:clickedButtonAtIndex:]':
+/Users/rp121066/Documents/myiPhoneProjects/POSSO/source/views/browserview/WebViewController.m:189: warning: 'NSString' may not respond to '-encodeAsURIComponent'
+/Users/rp121066/Documents/myiPhoneProjects/POSSO/source/views/browserview/WebViewController.m:189: warning: (Messages without a matching method signature
+/Users/rp121066/Documents/myiPhoneProjects/POSSO/source/views/browserview/WebViewController.m:189: warning: will be assumed to return 'id' and accept
+/Users/rp121066/Documents/myiPhoneProjects/POSSO/source/views/browserview/WebViewController.m:189: warning: '...' as arguments.)
+/Users/rp121066/Documents/myiPhoneProjects/POSSO/source/views/browserview/WebViewController.m:191: warning: 'NSString' may not respond to '-encodeAsURIComponent'
+/Users/rp121066/Documents/myiPhoneProjects/POSSO/source/views/browserview/WebViewController.m: In function '-[WebViewController alertView:clickedButtonAtIndex:]':
+/Users/rp121066/Documents/myiPhoneProjects/POSSO/source/views/browserview/WebViewController.m:197: warning: unused parameter 'alertView'
+/Users/rp121066/Documents/myiPhoneProjects/POSSO/source/views/browserview/WebViewController.m: In function '-[WebViewController webView:shouldStartLoadWithRequest:navigationType:]':
+/Users/rp121066/Documents/myiPhoneProjects/POSSO/source/views/browserview/WebViewController.m:215: warning: unused parameter 'aWebView'
+/Users/rp121066/Documents/myiPhoneProjects/POSSO/source/views/browserview/WebViewController.m:215: warning: unused parameter 'navigationType'
+/Users/rp121066/Documents/myiPhoneProjects/POSSO/source/views/browserview/WebViewController.m: In function '-[WebViewController webViewDidStartLoad:]':
+/Users/rp121066/Documents/myiPhoneProjects/POSSO/source/views/browserview/WebViewController.m:241: warning: unused parameter 'aWebView'
+/Users/rp121066/Documents/myiPhoneProjects/POSSO/source/views/browserview/WebViewController.m: In function '-[WebViewController webView:didFailLoadWithError:]':
+/Users/rp121066/Documents/myiPhoneProjects/POSSO/source/views/browserview/WebViewController.m:267: error: 'TwitterFonAppDelegate' undeclared (first use in this function)
+/Users/rp121066/Documents/myiPhoneProjects/POSSO/source/views/browserview/WebViewController.m:267: error: (Each undeclared identifier is reported only once
+/Users/rp121066/Documents/myiPhoneProjects/POSSO/source/views/browserview/WebViewController.m:267: error: for each function it appears in.)
+/Users/rp121066/Documents/myiPhoneProjects/POSSO/source/views/browserview/WebViewController.m:264: warning: unused parameter 'aWebView'
+/Users/rp121066/Documents/myiPhoneProjects/POSSO/source/views/browserview/WebViewController.m: In function '-[WebViewController postTweet:]':
+/Users/rp121066/Documents/myiPhoneProjects/POSSO/source/views/browserview/WebViewController.m:281: error: 'TwitterFonAppDelegate' undeclared (first use in this function)
+/Users/rp121066/Documents/myiPhoneProjects/POSSO/source/views/browserview/WebViewController.m:281: error: 'appDelegate' undeclared (first use in this function)
+/Users/rp121066/Documents/myiPhoneProjects/POSSO/source/views/browserview/WebViewController.m:281: error: syntax error before ')' token
+/Users/rp121066/Documents/myiPhoneProjects/POSSO/source/views/browserview/WebViewController.m:282: error: 'PostViewController' undeclared (first use in this function)
+/Users/rp121066/Documents/myiPhoneProjects/POSSO/source/views/browserview/WebViewController.m:282: error: 'postView' undeclared (first use in this function)
+/Users/rp121066/Documents/myiPhoneProjects/POSSO/source/views/browserview/WebViewController.m:280: warning: unused parameter 'sender'
+/Users/rp121066/Documents/myiPhoneProjects/POSSO/source/views/browserview/WebViewController.m: In function '-[WebViewController setCurrentURL:]':
+/Users/rp121066/Documents/myiPhoneProjects/POSSO/source/views/browserview/WebViewController.m:306: warning: unused parameter '_value'

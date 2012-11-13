@@ -1,0 +1,54 @@
+//
+//  WhoAmIViewController.h
+//  Posso
+//
+//  Created by alex on 15/04/09.
+//  Copyright 2009 Trollwerks Inc. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+
+
+@interface WhoAmIViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
+{
+   IBOutlet UILabel *enterLoginLabel;
+   IBOutlet UIActivityIndicatorView *loadingIndicator;
+   IBOutlet UILabel *errorLabel;
+   IBOutlet UITableView *infoTable;
+   
+   NSString *lastRetrievedToken;
+   NSMutableArray *lastRetrievedInfo;
+}
+
+@property (nonatomic, retain) IBOutlet UILabel *enterLoginLabel;
+@property (nonatomic, retain) IBOutlet UIActivityIndicatorView *loadingIndicator;
+@property (nonatomic, retain) IBOutlet UILabel *errorLabel;
+@property (nonatomic, retain) IBOutlet UITableView *infoTable;
+@property (nonatomic, copy) NSString *lastRetrievedToken;
+@property (nonatomic, retain) NSMutableArray *lastRetrievedInfo;
+
+// Life cycle
+
+- (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)animated;
+- (void)didReceiveMemoryWarning;
+#if __IPHONE_OS_VERSION_MIN_REQUIRED >= 30000
+- (void)viewDidUnload;
+- (void)setView:(UIView*)toView;
+#endif __IPHONE_OS_VERSION_MIN_REQUIRED >= 30000
+- (void)clearOutlets;
+- (void)dealloc;
+
+// Info management
+
+- (void)retrieveInfo;
+- (BOOL)parseInfo:(NSString *)info;
+
+// Table support
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView;
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section;
+- (NSInteger)tableView:(UITableView *)table numberOfRowsInSection:(NSInteger)section;
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath;
+
+@end

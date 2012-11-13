@@ -1,0 +1,43 @@
+//
+//  AdminViewController.h
+//  Posso
+//
+//  Created by alex on 15/04/09.
+//  Copyright Trollwerks Inc 2009. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+
+
+@interface AdminViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
+{
+   IBOutlet UITableView *functionsTable;
+   
+   NSArray *functionItems;
+}
+
+@property (nonatomic, retain) IBOutlet UITableView *functionsTable;
+@property (nonatomic, retain) NSArray *functionItems;
+
+// Life cycle
+
+- (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)animated;
+- (void)didReceiveMemoryWarning;
+#if __IPHONE_OS_VERSION_MIN_REQUIRED >= 30000
+- (void)viewDidUnload;
+- (void)setView:(UIView*)toView;
+#endif __IPHONE_OS_VERSION_MIN_REQUIRED >= 30000
+- (void)clearOutlets;
+- (void)dealloc;
+
+// Table support
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView;
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section;
+- (NSInteger)tableView:(UITableView *)table numberOfRowsInSection:(NSInteger)section;
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath;
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath;
+- (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath;
+
+@end

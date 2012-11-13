@@ -1,0 +1,302 @@
+//
+//  SearchUsersViewController.m
+//  Posso
+//
+//  Created by alex on 20/04/09.
+//  Copyright 2009 Trollwerks Inc. All rights reserved.
+//
+
+#import "SearchUsersViewController.h"
+#import "PossoAppDelegate.h"
+#import "EditUserViewController.h"
+#import "LogsViewController.h"
+
+@implementation SearchUsersViewController
+
+@synthesize keywordBar;
+@synthesize enterLoginLabel;
+@synthesize loadingIndicator;
+@synthesize errorLabel;
+@synthesize usersTable;
+@synthesize lastRetrievedToken;
+@synthesize lastRetrievedUsers;
+@synthesize lastSearchTerms;
+
+#pragma mark -
+#pragma mark Life cycle
+
+- (void)viewDidLoad
+{
+   [super viewDidLoad];
+   
+   self.usersTable.backgroundColor = [UIColor clearColor];
+   
+   [self fixDisplay];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+	NSIndexPath *selection = [self.usersTable indexPathForSelectedRow];
+	if (selection)
+		[self.usersTable deselectRowAtIndexPath:selection animated:animated];
+   
+   if (![self.lastRetrievedToken isEqual:[PossoAppDelegate appDelegate].token])
+      [self fixDisplay];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+   (void)animated;
+   
+   if (!self.lastSearchTerms.length)
+      [keywordBar becomeFirstResponder];
+}
+
+- (void)didReceiveMemoryWarning
+{
+   twlog("SearchUsersViewController didReceiveMemoryWarning -- no action");
+   [super didReceiveMemoryWarning];
+}
+
+#if __IPHONE_OS_VERSION_MIN_REQUIRED >= 30000
+- (void)viewDidUnload
+{
+	[self clearOutlets];
+}
+
+- (void)setView:(UIView*)toView
+{
+	if (!toView)
+		[self clearOutlets];
+	
+	[super setView:toView];
+}
+#endif __IPHONE_OS_VERSION_MIN_REQUIRED >= 30000
+
+- (void) clearOutlets
+{
+   self.keywordBar = nil;
+   self.enterLoginLabel = nil;
+   self.loadingIndicator = nil;
+   self.errorLabel = nil;
+   self.usersTable = nil;
+}
+
+- (void)dealloc
+{
+   [self clearOutlets];
+   self.lastRetrievedToken = nil;
+   self.lastRetrievedUsers = nil;
+   self.lastSearchTerms = nil;
+   [super dealloc];
+}
+
+#pragma mark -
+#pragma mark Users management
+
+- (void)fixDisplay
+{
+   // empty table data if there was any
+   self.lastRetrievedUsers = [NSMutableArray array];
+   
+   // check if we've got a valid token
+   self.lastRetrievedToken = [PossoAppDelegate appDelegate].token;
+   if (!self.lastRetrievedToken.length)
+   {
+      self.enterLoginLabel.hidden = NO;
+      self.loadingIndicator.stopAnimating;
+      self.errorLabel.hidden = YES;
+      self.usersTable.hidden = YES;
+      return;
+   }
+   
+   // check if we've got a valid search term
+   if (!self.lastSearchTerms.length)
+      return;
+   
+   // ok, start a request
+   isSearching = YES;
+   self.enterLoginLabel.hidden = YES;
+   self.loadingIndicator.startAnimating;
+   self.errorLabel.hidden = YES;
+   self.usersTable.hidden = YES;
+   
+   [self performSelectorInBackground:@selector(loadUsersFromServer) withObject:nil];
+}
+
+- (void)loadUsersFromServer
+{
+   NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
+   
+   BOOL validConfiguration = YES;
+   NSString *serverBase = [PossoAppDelegate appDelegate].baseURL;
+   validConfiguration &= 0 < serverBase.length;
+   validConfiguration &= 0 < self.lastRetrievedToken.length;
+   twcheck(validConfiguration);
+   
+   // note that searchterms "*" should make this identical to list users results it seems
+   NSString *usersURLString = [NSString
+      stringWithFormat:@"%@/search?filter=%@&attributes_names=objectclass&attributes_values_objectclass=person&admin=%@",
+      serverBase,
+      self.lastSearchTerms,
+      self.lastRetrievedToken
+   ];
+   
+   // note that token needs percent encoding for an expected trailing # character
+   // now we escape token on retrieval, including reserved but not illegal characters
+   //usersURLString = [usersURLString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+   twlog("calling %@ for user search", usersURLString);
+   
+	NSError* usersError = nil;
+	NSString *usersResult = [NSString
+      stringWithContentsOfURL:[NSURL URLWithString:usersURLString]
+      encoding:NSNonLossyASCIIStringEncoding
+      error:&usersError
+   ];
+   /* it was suggested that needing to POST was the problem, but no, it was lack of percent encoding
+    NSURL *usersURL = [NSURL URLWithString:usersURLString];
+    NSMutableURLRequest *usersRequest = [NSMutableURLRequest requestWithURL:usersURL];
+    [usersRequest setHTTPMethod: @"POST"];
+    NSURLResponse* usersResponse = nil;
+    NSData* usersResultData = [NSURLConnection
+    sendSynchronousRequest:usersRequest
+    returningResponse:&usersResponse
+    error:&usersError
+    ];
+    */
+   twlogif(nil != usersError, "users getting FAIL: %@", usersError);
+   
+   self.loadingIndicator.stopAnimating;
+   if (!usersError && [self parseUsers:usersResult])
+   {
+      self.usersTable.hidden = NO;
+      [self.usersTable reloadData];
+      [LogsViewController logWithFormat:@"searched users for %@", self.lastSearchTerms];
+   }
+   else
+   {
+      twlog("users result FAIL: %@", usersResult);
+      self.errorLabel.hidden = NO;
+      [LogsViewController logWithFormat:@"searching users for %@ failed", self.lastSearchTerms];
+   }
+ 
+   isSearching = NO;
+
+   [pool release];
+}
+
+- (BOOL)parseUsers:(NSString *)users
+{
+   if (!users || !users.length)
+      return NO;
+   if (0 != [users rangeOfString:@"Error report"].length)
+      return NO;
+   
+   // expect a list of names and possible values on separate lines
+   NSArray *lineArray = [users componentsSeparatedByString:@"\n"];
+   if (2 > lineArray.count)
+   {
+      twlog("something odd about received users -- no line breaks!\n\n%@", users);
+      return NO;
+   }
+   
+   // and these are what we expect each line to start with
+   NSString *namePrefix = @"string=";
+   
+   // so we'll go through the lines and construct an array to populate the table with
+   for (NSString *line in lineArray)
+   {
+      if (2 > line.length)
+         continue; // trailing CR, we assume
+      
+      if ([line hasPrefix:namePrefix])
+      {
+         NSString *userID = [line stringByReplacingOccurrencesOfString:namePrefix withString:@""];
+         [self.lastRetrievedUsers addObject:userID];
+         
+         continue;
+      }
+      
+      twlog("what is this line? -- %@", line);
+   }
+   
+   return YES;
+}
+
+#pragma mark -
+#pragma mark Table support
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+	(void)tableView;
+   
+   return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+   (void)tableView;
+   (void)section;
+   
+   return self.lastRetrievedUsers.count;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+   static NSString *UsersCellIdentifier = @"Users";
+   
+   UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:UsersCellIdentifier];
+   if (cell == nil)
+      cell = [[[UITableViewCell alloc] initWithFrame:CGRectZero reuseIdentifier:UsersCellIdentifier] autorelease];
+	
+   cell.text = [lastRetrievedUsers objectAtIndex:indexPath.row];
+   
+	return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+	[self tableView:tableView accessoryButtonTappedForRowWithIndexPath:indexPath];
+}
+
+- (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath
+{
+ 	(void)tableView;
+   
+   NSString *username = [lastRetrievedUsers objectAtIndex:indexPath.row];
+   //twlog("dispay user %@!", username);
+   
+   UIViewController *userViewController = [[EditUserViewController alloc] initWithNibName:@"EditUserView" bundle:nil];
+   userViewController.title = username;
+	[self.navigationController pushViewController:userViewController animated:YES];
+	[userViewController release];
+}
+
+#pragma mark -
+#pragma mark UISearchBar support
+
+ - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
+{
+   [searchBar resignFirstResponder];
+}
+
+- (void)searchBarTextDidEndEditing:(UISearchBar *)searchBar
+{
+   self.lastSearchTerms = searchBar.text;
+   
+   if (isSearching)
+   {
+      UIAlertView *alert = [[[UIAlertView alloc] 
+        initWithTitle:@"" 
+        message:@"A search is already in progress. Please try again when it completes."
+        delegate:nil 
+        cancelButtonTitle:@"OK" 
+        otherButtonTitles:nil
+      ] autorelease];
+      [alert show];
+   }
+   else
+      [self fixDisplay];
+}
+
+@end

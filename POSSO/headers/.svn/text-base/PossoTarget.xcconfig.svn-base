@@ -1,0 +1,15 @@
+// PossoTarget.xcconfig
+// Defaults to be applied to target settings
+
+PRODUCT_NAME = POssO
+GCC_PREFIX_HEADER = headers/Posso_Prefix.pch
+INFOPLIST_FILE = resources/Posso-Info.plist
+
+GCC_PRECOMPILE_PREFIX_HEADER = YES
+STANDARD_C_PLUS_PLUS_LIBRARY_TYPE = Dynamic
+// if you do not set this to NO, then your dynamic_cast will break, because gcc 4 is stupid
+//GCC_SYMBOLS_PRIVATE_EXTERN = NO
+PREBINDING = NO
+
+HEADERS_TROLLWERKS = source/trollwerks
+HEADER_SEARCH_PATHS = $(HEADERS_TROLLWERKS)

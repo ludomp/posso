@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 38
+/posso/!svn/ver/45/trunk/Posso/headers
+END
+PossoProject.xcconfig
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/posso/!svn/ver/1/trunk/Posso/headers/PossoProject.xcconfig
+END
+PossoTarget.xcconfig
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/posso/!svn/ver/45/trunk/Posso/headers/PossoTarget.xcconfig
+END
+Posso_Prefix.pch
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/posso/!svn/ver/1/trunk/Posso/headers/Posso_Prefix.pch
+END

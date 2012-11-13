@@ -1,0 +1,8 @@
+/Users/rp121066/Documents/myiPhoneProjects/POSSO/source/views/browserview/StringUtil.m: In function '-[NSString(NSStringUtils) encodeAsURIComponent]':
+/Users/rp121066/Documents/myiPhoneProjects/POSSO/source/views/browserview/StringUtil.m:54: warning: suggest parentheses around && within ||
+/Users/rp121066/Documents/myiPhoneProjects/POSSO/source/views/browserview/StringUtil.m:54: warning: suggest parentheses around && within ||
+/Users/rp121066/Documents/myiPhoneProjects/POSSO/source/views/browserview/StringUtil.m: In function '+[NSString(NSStringUtils) base64encode:]':
+/Users/rp121066/Documents/myiPhoneProjects/POSSO/source/views/browserview/StringUtil.m:78: warning: comparison between signed and unsigned
+/Users/rp121066/Documents/myiPhoneProjects/POSSO/source/views/browserview/StringUtil.m:81: warning: comparison between signed and unsigned
+/Users/rp121066/Documents/myiPhoneProjects/POSSO/source/views/browserview/StringUtil.m: In function '-[NSString(NSStringUtils) escapeHTML]':
+/Users/rp121066/Documents/myiPhoneProjects/POSSO/source/views/browserview/StringUtil.m:111: warning: comparison between signed and unsigned

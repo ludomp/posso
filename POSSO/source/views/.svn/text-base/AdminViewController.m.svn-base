@@ -1,0 +1,144 @@
+//
+//  AdminViewController.m
+//  Posso
+//
+//  Created by alex on 15/04/09.
+//  Copyright Trollwerks Inc 2009. All rights reserved.
+//
+
+#import "AdminViewController.h"
+
+@implementation AdminViewController
+
+@synthesize functionsTable;
+@synthesize functionItems;
+
+#pragma mark -
+#pragma mark Fields in functiondescription plists
+
+NSString *kFunctionCellText = @"text";
+NSString *kFunctionCellView = @"view";
+
+#pragma mark -
+#pragma mark Life cycle
+
+- (void)viewDidLoad
+{
+   [super viewDidLoad];
+   
+   self.functionsTable.backgroundColor = [UIColor clearColor];
+   
+   self.functionItems = [NSArray arrayWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"adminfunctions" ofType:@"plist"]];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+   [super viewWillAppear:animated];
+   
+	NSIndexPath *selection = [self.functionsTable indexPathForSelectedRow];
+	if (selection)
+		[self.functionsTable deselectRowAtIndexPath:selection animated:animated];
+}
+
+- (void)didReceiveMemoryWarning
+{
+   twlog("AdminViewController didReceiveMemoryWarning -- no action");
+   [super didReceiveMemoryWarning];
+}
+
+#if __IPHONE_OS_VERSION_MIN_REQUIRED >= 30000
+- (void)viewDidUnload
+{
+	[self clearOutlets];
+}
+
+- (void)setView:(UIView*)toView
+{
+	if (!toView)
+		[self clearOutlets];
+	
+	[super setView:toView];
+}
+#endif __IPHONE_OS_VERSION_MIN_REQUIRED >= 30000
+
+- (void) clearOutlets
+{
+   self.functionsTable = nil;
+}
+
+- (void)dealloc
+{
+   [self clearOutlets];
+   self.functionItems = nil;
+   [super dealloc];
+}
+
+#pragma mark -
+#pragma mark Table support
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+	(void)tableView;
+   return 1;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section;
+{
+	(void)tableView;
+	(void)section;
+	
+   return @"Admin Functions";
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+   (void)tableView;
+ 	(void)section;
+  
+   return self.functionItems.count;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+   static NSString *AdminCellIdentifier = @"Admin";
+   
+   UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:AdminCellIdentifier];
+   if (cell == nil)
+      cell = [[[UITableViewCell alloc] initWithFrame:CGRectZero reuseIdentifier:AdminCellIdentifier] autorelease];
+	
+   NSDictionary *itemInfo = [self.functionItems objectAtIndex:indexPath.row];
+   cell.text = [itemInfo objectForKey:kFunctionCellText];
+   if (nil != [itemInfo objectForKey:kFunctionCellView])
+      cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
+   else
+      cell.accessoryType = UITableViewCellAccessoryNone;
+   
+	return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+	[self tableView:tableView accessoryButtonTappedForRowWithIndexPath:indexPath];
+}
+
+- (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath
+{
+ 	(void)tableView;
+   
+   NSDictionary *itemInfo = [self.functionItems objectAtIndex:indexPath.row];
+   NSString *viewString = [itemInfo objectForKey:kFunctionCellView];
+   if (!viewString)
+      return;
+   
+   // note assumption of controller class naming convention - add "Controller" to xib name
+   NSString *viewControllerString = [viewString stringByAppendingString:@"Controller"];
+   id controllerClass = objc_getClass([viewControllerString UTF8String]);
+   twcheck(controllerClass);
+   
+   UIViewController *functionViewController = [[controllerClass alloc] initWithNibName:viewString bundle:nil];
+   functionViewController.title = [itemInfo objectForKey:kFunctionCellText];
+	[self.navigationController pushViewController:functionViewController animated:YES];
+	[functionViewController release];
+}
+
+@end

@@ -1,0 +1,63 @@
+//
+//  EditRangeTableViewCell.h
+//  Posso
+//
+//  Created by alex on 26/04/09.
+//  Copyright 2009 Trollwerks Inc. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+
+extern NSString* kRangeItemText;
+extern NSString* kDefaultItemMinimum;
+extern NSString* kDefaultItemMaximum;
+extern NSString* kSettingsItemMinimum;
+extern NSString* kSettingsItemMaximum;
+
+@interface EditRangeTableViewCell : UITableViewCell <UITextFieldDelegate, UIActionSheetDelegate, UIPickerViewDataSource, UIPickerViewDelegate>
+{
+	UILabel *label;
+
+   UITextField *minimumValue;
+	UILabel *toLabel;
+	UITextField *maximumValue;
+   
+   UISwitch *valueSwitch;
+
+   NSDictionary *itemInfo;
+   
+   BOOL editingMinimum;
+   NSInteger editScrollOffset;
+}
+
+@property (nonatomic, retain) UILabel *label;
+@property (nonatomic, retain) UITextField *minimumValue;
+@property (nonatomic, retain) UILabel *toLabel;
+@property (nonatomic, retain) UITextField *maximumValue;
+@property (nonatomic, retain) UISwitch *valueSwitch;
+@property (nonatomic, retain) NSDictionary *itemInfo;
+
+// Life cycle
+
+- (id)initWithFrame:(CGRect)frame reuseIdentifier:(NSString *)reuseIdentifier;
+- (void)dealloc;
+
+// Editability management
+
+- (void)setItemInfo:(NSDictionary *)newInfo;
+
+- (IBAction)switchChanged:(id)sender;
+
+// Picking support
+
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField;
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex;
+
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView;
+- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component;
+
+- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component;
+- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component;
+
+@end

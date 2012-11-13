@@ -1,0 +1,55 @@
+//
+//  CreditsViewController.h
+//  Posso
+//
+//  Created by alex on 15/04/09.
+//  Copyright 2009 Trollwerks Inc. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+
+
+enum 
+{
+   kCreditsSection_Application = 0,
+   kCreditsSection_People,
+   kCreditsSectionCount,
+};
+
+@interface CreditsViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
+{
+   IBOutlet UITableView *creditsTable;
+
+   NSArray *applicationItems;
+   NSArray *peopleItems;
+}
+
+@property (nonatomic, retain) IBOutlet UITableView *creditsTable;
+@property (nonatomic, retain) NSArray *applicationItems;
+@property (nonatomic, retain) NSArray *peopleItems;
+
+// Life cycle
+
+- (void)viewDidLoad;
+- (void)didReceiveMemoryWarning;
+#if __IPHONE_OS_VERSION_MIN_REQUIRED >= 30000
+- (void)viewDidUnload;
+- (void)setView:(UIView*)toView;
+#endif __IPHONE_OS_VERSION_MIN_REQUIRED >= 30000
+- (void)clearOutlets;
+- (void)dealloc;
+
+// Table support
+
+- (NSDictionary *)itemInfoAtIndexPath:(NSIndexPath *)indexPath;
+- (UIImage *)creditsImageFor:(NSString *)person;
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView;
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section;
+- (NSInteger)tableView:(UITableView *)table numberOfRowsInSection:(NSInteger)section;
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath;
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath;
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath;
+- (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath;
+
+@end

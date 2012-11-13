@@ -1,0 +1,30 @@
+//
+//  LicenseViewController.h
+//  Posso
+//
+//  Created by alex on 26/04/09.
+//  Copyright 2009 Trollwerks Inc. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+
+
+@interface LicenseViewController : UIViewController
+{
+   IBOutlet UITextView *licenseTextView;
+}
+
+@property (nonatomic, retain) IBOutlet UITextView *licenseTextView;
+
+// Life cycle
+
+- (void)viewDidLoad;
+- (void)didReceiveMemoryWarning;
+#if __IPHONE_OS_VERSION_MIN_REQUIRED >= 30000
+- (void)viewDidUnload;
+- (void)setView:(UIView*)toView;
+#endif __IPHONE_OS_VERSION_MIN_REQUIRED >= 30000
+- (void)clearOutlets;
+- (void)dealloc;
+
+@end

@@ -1,0 +1,59 @@
+//
+//  LicenseViewController.m
+//  Posso
+//
+//  Created by alex on 26/04/09.
+//  Copyright 2009 Trollwerks Inc. All rights reserved.
+//
+
+#import "LicenseViewController.h"
+
+@implementation LicenseViewController
+
+@synthesize licenseTextView;
+
+- (void)viewDidLoad
+{
+   [super viewDidLoad];
+
+   NSString *path = [[NSBundle mainBundle] pathForResource:@"license" ofType:@"txt"];
+   NSError *stringError = nil;
+   NSString *licenseText = [NSString stringWithContentsOfFile:path encoding:NSASCIIStringEncoding error:&stringError];
+   twcheck(!stringError);
+   
+   licenseTextView.text = licenseText;
+}
+
+- (void)didReceiveMemoryWarning
+{
+   twlog("LicenseViewController didReceiveMemoryWarning -- no action");
+   [super didReceiveMemoryWarning];
+}
+
+#if __IPHONE_OS_VERSION_MIN_REQUIRED >= 30000
+- (void)viewDidUnload
+{
+	[self clearOutlets];
+}
+
+- (void)setView:(UIView*)toView
+{
+	if (!toView)
+		[self clearOutlets];
+	
+	[super setView:toView];
+}
+#endif __IPHONE_OS_VERSION_MIN_REQUIRED >= 30000
+
+- (void) clearOutlets
+{
+	self.licenseTextView = nil;
+}
+
+- (void)dealloc
+{
+   [self clearOutlets];
+   [super dealloc];
+}
+
+@end

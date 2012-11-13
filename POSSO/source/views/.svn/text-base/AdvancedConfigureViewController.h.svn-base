@@ -1,0 +1,47 @@
+//
+//  AdvancedConfigureViewController.h
+//  Posso
+//
+//  Created by alex on 26/04/09.
+//  Copyright 2009 Trollwerks Inc. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+
+
+@interface AdvancedConfigureViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
+{
+   IBOutlet UITableView *passwordTable;
+   IBOutlet UIButton *licenseButton;
+
+   NSArray *passwordItems;
+}
+
+@property (nonatomic, retain) IBOutlet UITableView *passwordTable;
+@property (nonatomic, retain) IBOutlet UIButton *licenseButton;
+@property (nonatomic, retain) NSArray *passwordItems;
+
+// Life cycle
+
+- (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)animated;
+- (void)didReceiveMemoryWarning;
+#if __IPHONE_OS_VERSION_MIN_REQUIRED >= 30000
+- (void)viewDidUnload;
+- (void)setView:(UIView*)toView;
+#endif __IPHONE_OS_VERSION_MIN_REQUIRED >= 30000
+- (void)clearOutlets;
+- (void)dealloc;
+
+// Table support
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView;
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section;
+- (NSInteger)tableView:(UITableView *)table numberOfRowsInSection:(NSInteger)section;
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath;
+
+// Action support
+
+- (IBAction)showLicense:(id)sender;
+
+@end

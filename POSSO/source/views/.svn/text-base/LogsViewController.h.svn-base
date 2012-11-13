@@ -1,0 +1,46 @@
+//
+//  LogsViewController.h
+//  Posso
+//
+//  Created by alex on 15/04/09.
+//  Copyright 2009 Trollwerks Inc. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+
+
+@interface LogsViewController : UIViewController <UIActionSheetDelegate>
+{
+   IBOutlet UITextView *logTextView;
+   IBOutlet UIBarButtonItem *uploadButton;
+   IBOutlet UIBarButtonItem *eraseButton;
+}
+
+@property (nonatomic, retain) IBOutlet UITextView *logTextView;
+@property (nonatomic, retain) IBOutlet UIBarButtonItem *uploadButton;
+@property (nonatomic, retain) IBOutlet UIBarButtonItem *eraseButton;
+
+// Life cycle
+
+- (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)animated;
+- (void)didReceiveMemoryWarning;
+#if __IPHONE_OS_VERSION_MIN_REQUIRED >= 30000
+- (void)viewDidUnload;
+- (void)setView:(UIView*)toView;
+#endif __IPHONE_OS_VERSION_MIN_REQUIRED >= 30000
+- (void)clearOutlets;
+- (void)dealloc;
+
+// Logging support
+
++ (NSMutableString *)sharedLog;
++ (void)log:(NSString *)string;
++ (void)logWithFormat:(NSString *)format, ...;
+
+- (IBAction)uploadLogs:(id)sender;
+
+- (IBAction)eraseLogs:(id)sender;
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex;
+
+@end

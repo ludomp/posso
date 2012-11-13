@@ -1,0 +1,41 @@
+//
+//  EditTextTableViewCell.h
+//  Posso
+//
+//  Created by alex on 20/04/09.
+//  Copyright 2009 Trollwerks Inc. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+
+
+@interface EditTextTableViewCell : UITableViewCell <UITextFieldDelegate>
+{
+	UITextField *label;
+   
+   BOOL editable;
+
+	NSString *previousText;
+}
+
+@property (nonatomic, retain) UITextField *label;
+@property (nonatomic, assign) BOOL editable;
+@property (nonatomic, copy) NSString *previousText;
+
+// Life cycle
+
+- (id)initWithFrame:(CGRect)frame reuseIdentifier:(NSString *)reuseIdentifier;
+- (void)dealloc;
+
+// Editability management
+
+- (void)setEditable:(BOOL)isEditable;
+
+// Text field support
+
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField;
+- (BOOL)textFieldShouldReturn:(UITextField *)textField;
+- (void)textFieldDidBeginEditing:(UITextField *)textField;
+- (void)textFieldDidEndEditing:(UITextField *)textField;
+
+@end

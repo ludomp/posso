@@ -1,0 +1,63 @@
+//
+//  ConfigureViewController.h
+//  Posso
+//
+//  Created by alex on 15/04/09.
+//  Copyright 2009 Trollwerks Inc. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+
+extern NSString* kSavedServerHost;
+extern NSString* kSavedServerPort;
+extern NSString* kSavedServerURI;
+extern NSString* kSavedLoginID;
+extern NSString* kSavedPassword;
+extern NSString* kSavedUseSSL;
+
+@interface ConfigureViewController : UIViewController <UITextFieldDelegate>
+{
+   IBOutlet UITextField *serverHostField;
+   IBOutlet UITextField *serverPortField;
+   IBOutlet UITextField *serverURIField;
+   IBOutlet UITextField *loginIDField;
+   IBOutlet UITextField *passwordField;
+   IBOutlet UISwitch *openSSLSwitch;
+   IBOutlet UIButton *doneButton;
+   IBOutlet UIButton *advancedButton;
+}
+
+@property (nonatomic, retain) IBOutlet UITextField *serverHostField;
+@property (nonatomic, retain) IBOutlet UITextField *serverPortField;
+@property (nonatomic, retain) IBOutlet UITextField *serverURIField;
+@property (nonatomic, retain) IBOutlet UITextField *loginIDField;
+@property (nonatomic, retain) IBOutlet UITextField *passwordField;
+@property (nonatomic, retain) IBOutlet UISwitch *openSSLSwitch;
+@property (nonatomic, retain) IBOutlet UIButton *doneButton;
+@property (nonatomic, retain) IBOutlet UIButton *advancedButton;
+
+// Life cycle
+
+- (void)viewDidLoad;
+- (void)didReceiveMemoryWarning;
+- (void)viewWillAppear:(BOOL)animated;
+#if __IPHONE_OS_VERSION_MIN_REQUIRED >= 30000
+- (void)viewDidUnload;
+- (void)setView:(UIView*)toView;
+#endif __IPHONE_OS_VERSION_MIN_REQUIRED >= 30000
+- (void)clearOutlets;
+- (void)dealloc;
+
+// Text field support
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField;
+- (void)textFieldDidBeginEditing:(UITextField *)textField;
+- (void)textFieldDidEndEditing:(UITextField *)textField;
+
+// Action support
+
+- (IBAction)configureDone:(id)sender;
+
+- (IBAction)advancedConfigure:(id)sender;
+
+@end
